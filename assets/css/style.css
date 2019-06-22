@@ -1,4 +1,9 @@
-.class{
-    border: 1px solid black;
-    background-color: aqua;
+.crystals{
+    justify-content: space-around;
+}
+
+.crystal{
+    border: 1px solid green;
+    height: 100px;
+    width: 100px;
 }
