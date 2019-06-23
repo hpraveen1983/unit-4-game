@@ -5,13 +5,15 @@ var win=0;
 var prev=0;
 
 
-random_result=Math.floor((Math.random() * 60) + 30);
+var resetAndStart=function () {
+    $(".crystals").empty();
+    random_result=Math.floor((Math.random() * 60) + 30);
 $("#result").html('Random Result: '+ random_result);
 
 for (var i=0;i<4;i++){
 
     var randomNumber=Math.floor((Math.random() * 11) + 1);
-    console.log(randomNumber);
+    //console.log(randomNumber);    
 
     var crystal=$("<div>");
     crystal.attr({"class":'crystal',"data-random": randomNumber});
@@ -20,18 +22,26 @@ for (var i=0;i<4;i++){
 
     $(".crystals").append(crystal);
 }
+}
+resetAndStart();;
 
 $(".crystal").on('click',function(){
 
-    var num=console.log($(this).attr('data-random'));
+    var num=parseInt($(this).attr('data-random'));
     prev += num;
+    console.log(prev);
 
     if(prev>random_result){
-        lostCounter=lost--;
-        $("#lost-id").html('# of times Lost: '+ lostCounter);
+        console.log("You Lost!");
+        lost++;
+        $("#lost-id").html('# of times Lost: '+ lost);
+        resetAndStart();
+        
     } else if(prev===random_result){
-        winCounter=win++;
-        $("#win-id").html('# of times Won: '+ winCounter);
+        console.log("You Won!");
+        win++;
+        $("#win-id").html('# of times Won: '+ win);
+        resetAndStart();
     }
 
 });
