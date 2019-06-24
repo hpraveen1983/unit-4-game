@@ -25,7 +25,7 @@ for (var i=0;i<4;i++){
 }
 resetAndStart();;
 
-$(".crystal").on('click',function(){
+$(document).on('click',function(){
 
     var num=parseInt($(this).attr('data-random'));
     prev += num;
@@ -35,12 +35,14 @@ $(".crystal").on('click',function(){
         console.log("You Lost!");
         lost++;
         $("#lost-id").html('# of times Lost: '+ lost);
+        prev=0;
         resetAndStart();
         
     } else if(prev===random_result){
         console.log("You Won!");
         win++;
         $("#win-id").html('# of times Won: '+ win);
+        prev=0;
         resetAndStart();
     }
 
