@@ -22,13 +22,17 @@ for (var i=0;i<4;i++){
 
     $(".crystals").append(crystal);
 }
+
+$("#prev").html("Total Score: "+prev);
+
 }
 resetAndStart();;
 
-$(document).on('click',function(){
+$(document).on('click',".crystal",function(){
 
     var num=parseInt($(this).attr('data-random'));
     prev += num;
+    $("#prev").html("Total Score: "+prev);
     console.log(prev);
 
     if(prev>random_result){
