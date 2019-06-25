@@ -1,11 +1,12 @@
 .crystals{
+    display: flex;
     justify-content: space-around;
 }
 
 .crystal{
     border: 1px solid green;
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 200px;
     border-radius: 4px;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.5)
 }

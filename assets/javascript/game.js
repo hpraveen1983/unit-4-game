@@ -1,58 +1,65 @@
 //Pseudo Coding
-var random_result;
-var lost=0;
-var win=0;
-var prev=0;
 
+//Variable declaration
+var CompGuess;
+var lost = 0;
+var win = 0;
+var tempNumber = 0;
 
-var resetAndStart=function () {
+//create reset and start function for the game
+var resetStart = function () {
     $(".crystals").empty();
-    var images =['https://image.shutterstock.com/image-photo/amazing-colorful-quartz-rainbow-flame-600w-736064353.jpg',
-    'https://image.shutterstock.com/image-photo/amethyst-cluster-mineral-specimen-closeup-600w-1412059817.jpg',
-    'https://image.shutterstock.com/image-photo/amazing-colorful-blue-agate-crystal-600w-1012382911.jpg',
-    'https://image.shutterstock.com/image-illustration/3d-render-emerald-green-crystal-600w-674585770.jpg'];
-    random_result=Math.floor((Math.random() * 60) + 30);
-$("#result").html('Random Result: '+ random_result);
+    //Four crystal images
+    var images = ['https://www.crystalinks.com/lodalite300.jpg',
+        'https://www.crystalinks.com/aquamarine.jpg',
+        'https://www.crystalinks.com/malachite.jpg',
+        'https://www.crystalinks.com/ruby.jpg'];
+    CompGuess = Math.floor((Math.random() * 60) + 30);
+    $("#result").html('Can you match this Number? ' + CompGuess);
+    //for loop to create div and random number
+    for (var i = 0; i < 4; i++) {
 
-for (var i=0;i<4;i++){
+        var randomNumber = Math.floor((Math.random() * 11) + 1);
+        //console.log(randomNumber);    
 
-    var randomNumber=Math.floor((Math.random() * 11) + 1);
-    //console.log(randomNumber);    
+        var crystal = $("<div>");
+        crystal.attr({ "class": 'crystal', "data-random": randomNumber });
+        crystal.css({
+            "background-image": "url('" + images[i] + "')",
+            "background-size": "cover"
+        });
+        //crystal.html(randomNumber);
 
-    var crystal=$("<div>");
-    crystal.attr({"class":'crystal',"data-random": randomNumber});
-    crystal.css({"background-image":"url('"+ images[i] +"')",
-    "background-size":"cover"});
-    crystal.html(randomNumber);
+        $(".crystals").append(crystal);
+    }
 
-    $(".crystals").append(crystal);
+    $("#tempNumber").html("Total Score: " + tempNumber);
+
 }
+resetStart();;
 
-$("#prev").html("Total Score: "+prev);
+$(document).on('click', ".crystal", function () {
 
-}
-resetAndStart();;
+    //Tracking tempNumberious number
+    var num = parseInt($(this).attr('data-random'));
+    tempNumber += num;
+    $("#tempNumber").html("Total Score: " + tempNumber);
+    //console.log(tempNumber);
 
-$(document).on('click',".crystal",function(){
-
-    var num=parseInt($(this).attr('data-random'));
-    prev += num;
-    $("#prev").html("Total Score: "+prev);
-    console.log(prev);
-
-    if(prev>random_result){
+    //loss condition
+    if (tempNumber > CompGuess) {
         console.log("You Lost!");
         lost++;
-        $("#lost-id").html('# of times Lost: '+ lost);
-        prev=0;
-        resetAndStart();
-        
-    } else if(prev===random_result){
+        $("#lost-id").html('Number of Games Lost: ' + lost);
+        tempNumber = 0;
+        resetStart();
+        //win condition
+    } else if (tempNumber === CompGuess) {
         console.log("You Won!");
         win++;
-        $("#win-id").html('# of times Won: '+ win);
-        prev=0;
-        resetAndStart();
+        $("#win-id").html('Number of Games Won: ' + win);
+        tempNumber = 0;
+        resetStart();
     }
 
 });
